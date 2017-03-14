@@ -1,0 +1,126 @@
+<head>
+  <title>A Simple Bot</title>
+</head>
+
+<body>
+
+  {{> hello}}
+  {{> info}}
+</body>
+
+<template name="hello">
+</template>
+
+<template name="info">
+<center>
+
+<form>
+  <div class="form-group" style="width:50%">
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+    <p class="lead" >How's life ?</p>
+    <input style="height:40px;display:inline" type="text" class="form-control" id="text" placeholder="How's life ?" />
+	<br/>
+	<br/>
+	<button class="btn btn-lg btn-success" id="tell" >Tell Ashin</button>
+	<br/>
+    <br/>
+    <img id="answer" src="gifs/happy.gif"/>
+    <br/>
+     <br/>
+    <p id="response"> </p>
+  </div>
+  <script type="text/javascript">
+   function hideResponses()
+  {
+   $("#answer").hide();
+   $("#response").hide();
+  }
+  
+  function showResponses()
+  {
+   $("#answer").show();
+   $("#response").show();
+  }
+  
+  function checkIfBlank(){
+  
+  if($("#text").val() == ""){
+          $("#answer").attr("src", "gifs/angry.gif");
+          $("#response").html("<p class='lead'> Can't you type something ?</p>");
+          showResponses();
+          return false;}
+        return true;
+  
+  }
+  
+  function checkIfLessWords(){
+  
+   if($("#text").val().split(" ").length<=5){
+          $("#answer").attr("src", "gifs/angry.gif");
+          $("#response").html("<p class='lead'>  Seriously? Type at least six words!</p>");
+          showResponses();
+          return false;} 
+     return true;
+  }
+  
+  function prepareResponse(filename,response){
+  
+  $("#answer").attr("src", filename);
+  $("#response").html("<p class='lead'> " + response + " </p>");
+  showResponses();
+  
+  }
+  
+  function getRandom(min, max) {
+    return Math.round(Math.random() * (max - min) + min);
+}
+  
+  $("document").ready(function(){
+  
+	  $( "#text" ).on('input',function(e){
+	  hideResponses();
+	});
+  
+  hideResponses();
+  
+  var responses = ["God , help us.","Let's scoot","Just through it away","Danda nakka ...", "Like that huh? ;) ","Because am happy ..."];
+  $("#tell").click(function(e){
+         e.preventDefault();
+         
+         Meteor.call('sendText',$("#text").val());         
+
+         if(!checkIfBlank())
+         return;
+         
+         if(!checkIfLessWords())
+         return ;
+         
+
+         sentiment($("#text").val(), function( e, result ) {
+          
+          if(result.score < 0){
+          
+          pos = getRandom(1,3);
+          prepareResponse("/gifs/"+pos+".gif",responses[pos-1]);
+          
+          }else{
+          
+          pos = getRandom(4,6);
+          prepareResponse("/gifs/"+pos+".gif",responses[pos-1]);
+          
+          }
+          
+          
+                
+          });
+  
+  });
+  });
+  </script>
+</form>
+
+</center>
+</template>
