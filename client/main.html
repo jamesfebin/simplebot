@@ -20,21 +20,25 @@
   <br/>
 <form>
   <div class="form-group" style="width:50%">
+	
 	<br/>
 	<br/>
+	    <p><i> Ashu is a simple NLP bot. He responds with memes according to the sentiment of the topic. Learn to build it here.</i></p>
+<br/>
+    <p class="lead" >What's up ?</p>
+     
+    <input style="height:40px;display:inline" type="text" class="form-control" id="text" placeholder="What's up ?" />
 	<br/>
 	<br/>
-    <p class="lead" >How's life ?</p>
-    <input style="height:40px;display:inline" type="text" class="form-control" id="text" placeholder="How's life ?" />
-	<br/>
-	<br/>
-	<button class="btn btn-lg btn-success" id="tell" >Tell Ashin</button>
+	<button class="btn btn-lg btn-success" id="tell" >Tell Ashu</button>
 	<br/>
     <br/>
+    
+    <p id="response"> </p>
+   
     <img id="answer" src="gifs/happy.gif"/>
     <br/>
      <br/>
-    <p id="response"> </p>
   </div>
   <script type="text/javascript">
    function hideResponses()
@@ -53,7 +57,7 @@
   
   if($("#text").val() == ""){
           $("#answer").attr("src", "gifs/angry.gif");
-          $("#response").html("<p class='lead'> Can't you type something ?</p>");
+          $("#response").html("<p class='lead'> <i> Can't you type something ?</i></p>");
           showResponses();
           return false;}
         return true;
@@ -64,7 +68,7 @@
   
    if($("#text").val().split(" ").length<=5){
           $("#answer").attr("src", "gifs/angry.gif");
-          $("#response").html("<p class='lead'>  Seriously? Type at least six words!</p>");
+          $("#response").html("<p class='lead'> <i> Seriously? Type at least six words! </i></p>");
           showResponses();
           return false;} 
      return true;
@@ -127,9 +131,8 @@
   <br/>
   
  
-
   <p class="lead" >
-  <a href="" > How to build a simple NLP bot in 30 minutes (Coming Soon)</a> <br/><br/>
+   <a href="" > How to build a simple NLP bot in 30 minutes (Coming Soon)</a> <br/><br/>
   <a href="http://amzn.to/2nypCUZ" > Interested in making cloud apps? Read our book Cloud Is a Piece of Cake </a>
 
   </p>
